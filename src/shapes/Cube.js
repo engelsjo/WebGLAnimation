@@ -3,7 +3,7 @@ var Cube = function(length, width, height, material){
 
     var vertexArr = new Float32Array(24);
     var normalArr = new Float32Array(24);
-    var indexArr = new Float32Array(24)
+    var indexArr = new Float32Array(24);
     
     //adding vertex the hard and brutal way
     vertexArr[0] = -.5 * width;
@@ -70,22 +70,22 @@ var Cube = function(length, width, height, material){
 
     var top_index = [15, 12, 9, 6];
     for (var k = 0; k < 4; k++){ //top face
-    	indexArr[k + 8] = top_index[k]
+    	indexArr[k + 8] = top_index[k];
     }
 
     var bott_index = [3, 0, 21, 18];
     for (var k = 0; k < 4; k++){ //bottom face
-    	indexArr[k + 12] = bott_index[k]
+    	indexArr[k + 12] = bott_index[k];
     }
 
     var right_index = [6, 3, 18, 15];
     for (var k = 0; k < 4; k++){ //right face
-    	indexArr[k + 16] = right_index[k]
+    	indexArr[k + 16] = right_index[k];
     }
 
     var left_index = [21, 0, 9, 12];
     for (var k = 0; k < 4; k++){ //left face
-    	indexArr[k + 20] = left_index[k]
+    	indexArr[k + 20] = left_index[k];
     }
 
     geometry.addAttribute('index', new THREE.BufferAttribute(indexArr, 1));
