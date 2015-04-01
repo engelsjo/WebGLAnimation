@@ -1,6 +1,6 @@
 Tank = function(){
 
-	var body = new THREE.CubeGeometry(6, 3, 4);
+	var body = new THREE.CubeGeometry(3, 6, 4);
 	var turret = new Mesh(new Turret(), new MeshPhongMaterial({color:0x535353}));
 	var track1 = new Mesh(new Track(), new MeshPhongMaterial({color:0x535353}));
 	var track2 = new Mesh(new Track(), new MeshPhongMaterial({color:0x535353}));
