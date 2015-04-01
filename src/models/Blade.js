@@ -8,14 +8,14 @@ Blade = function(){
 	var blade_render = new THREE.Group();
 
 	//center of the blade
-	center.translateZ(.5);
+	center.translateY(.5);
 
     //blade 1 portion
-    blade1.translateZ(1);
+    blade1.translateY(1);
     
     //blade 2 portion
-    blade2.translateZ(1);
-    blade2.rotateZ(90);
+    blade2.translateY(1);
+    blade2.rotateY(90);
 
 	blade_render.add(center);
 	blade_render.add(blade1);

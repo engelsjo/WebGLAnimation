@@ -64,22 +64,23 @@ require([], function(){
     //////////////////////////////////////////////////////////////////////////////////
     //      add an object and make it move                  //
     //////////////////////////////////////////////////////////////////////////////////  
-    var wheel_cf = new THREE.Matrix4();
-    wheel_cf.makeTranslation(0, -20, 0);
-    var arm_cf = new THREE.Matrix4();
-    arm_cf.makeRotationZ(THREE.Math.degToRad(40));
-    var wheel = new Wheel();
-    var arm = new SwingArm(20);
+    
+    //set up the helicopter cf
+    var helibase_cf = new THREE.Matrix4();
+    var heli_blade_cf = new THREE.Matrix4();
+    var heli_rear_cf = new THREE.Matrix4();
+    helibase_cf.makeTranslation(0, 0, 0);
+    heli_blade_cf.multiply(new THREE.Matrix4().makeTranslation(0, 5.75, 0), new THREE.Matrix4().makeRotationY(THREE.Math.degToRad(60)));    
+    heli_rear_cf.multiply(new THREE.Matrix4().makeRotationZ(THREE.Math.degToRad(90)), new THREE.Matrix4().makeTranslation(3.75, 1, -11));
+    heli_rear_cf.multiply(new THREE.Matrix4().scale(new THREE.Vector3(.25, .25, .25)));
 
+    var helibase = new HeliBase();
+    var blade = new Blade();
+    var rear_blade = new Blade();
 
-    var test = new HeliBase();
-    scene.add(test);
-
-//    arm.add (new THREE.AxisHelper(2));
-    var frame = new SwingFrame();
-    arm.add (wheel);
-    frame.add(arm);
-    //scene.add (frame);
+    helibase.add(blade);
+    helibase.add(rear_blade)
+    scene.add(helibase);
     scene.add (new THREE.AxisHelper(4));
 
     /* Load the first texture image */
@@ -133,18 +134,20 @@ require([], function(){
         var rot = new THREE.Quaternion();
         var vscale = new THREE.Vector3();
 
-        wheel_cf.multiply(new THREE.Matrix4().makeRotationZ(THREE.Math.degToRad(delta * 72)));
-        wheel_cf.decompose(tran, quat, vscale);
-        wheel.position.copy(tran);
-        wheel.quaternion.copy(quat);
+        //heli anim
+        helibase_cf.decompose(tran, quat, vscale);
+        helibase.position.copy(tran);
+        helibase.quaternion.copy(quat);
 
-        /* TODO: when animation is resumed after a pause, the arm jumps */
-        var curr_angle = 40.0 * Math.cos(now);
-        arm_cf.copy(new THREE.Matrix4().makeRotationZ(THREE.Math.degToRad(curr_angle)));
-        arm_cf.decompose (tran, quat, vscale);
-//        rot.setFromAxisAngle( new THREE.Vector3(0,0,1), THREE.Math.degToRad(arm_angle));
-        arm.position.copy(tran);
-        arm.quaternion.copy(quat);
+        heli_blade_cf.decompose (tran, quat, vscale);
+        blade.position.copy(tran);
+        blade.quaternion.copy(quat);
+
+        heli_rear_cf.decompose(tran, quat, vscale);
+        rear_blade.position.copy(tran);
+        rear_blade.quaternion.copy(quat);
+        rear_blade.scale.set(vscale.x, vscale.y, vscale.z);
+
     });
     
     //////////////////////////////////////////////////////////////////////////////////
