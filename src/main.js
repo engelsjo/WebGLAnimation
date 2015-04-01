@@ -70,7 +70,7 @@ require([], function(){
     //      add an object and make it move                  //
     //////////////////////////////////////////////////////////////////////////////////  
     
-    //set up the helicopter cf
+    //**********      set up the helicopter cf ***********
     var helibase_cf = new THREE.Matrix4();
     var heli_blade_cf = new THREE.Matrix4();
     var heli_rear_cf = new THREE.Matrix4();
@@ -87,6 +87,11 @@ require([], function(){
     helibase.add(rear_blade)
     scene.add(helibase);
     scene.add (new THREE.AxisHelper(4));
+
+
+    //************** Tank stuff *****************
+    var tank = new Tank();
+    scene.add(tank);
 
 
     /* Load the first texture image */
@@ -109,9 +114,9 @@ require([], function(){
     /* attach the texture as the "map" property of the material */
     var sphereMat = new THREE.MeshBasicMaterial ({envMap:cubemap});
     var sphere = new THREE.Mesh (sphereGeo, sphereMat);
-    sphere.position.x = 0;
-    sphere.position.y = 0;
-    sphere.position.z = 0;
+    sphere.position.x = 50;
+    sphere.position.y = 50;
+    sphere.position.z = 50;
     scene.add(sphere);
 
     onRenderFcts.push(function(delta, now){

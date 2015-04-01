@@ -1,8 +1,8 @@
 Guard = function() {
 	//build
-	var mainBar = new Mesh(new THREE.CubeGeometry(4, .2, 1), new MeshPhongMaterial({color:0x535353}));
-	var sideBar1 = new Mesh(new THREE.CubeGeometry(1.5, .2, 1), new MeshPhongMaterial({color:0x535353}));
-	var sideBar2 = new Mesh(new THREE.CubeGeometry(1.5, .2, 1), new MeshPhongMaterial({color:0x535353}));
+	var mainBar = new THREE.Mesh(new THREE.CubeGeometry(4, .2, 1), new THREE.MeshPhongMaterial({color:0x535353}));
+	var sideBar1 = new THREE.Mesh(new THREE.CubeGeometry(1.5, .2, 1), new THREE.MeshPhongMaterial({color:0x535353}));
+	var sideBar2 = new THREE.Mesh(new THREE.CubeGeometry(1.5, .2, 1), new THREE.MeshPhongMaterial({color:0x535353}));
 
 	//render
 	var guard_render = new THREE.Group();
