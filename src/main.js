@@ -118,9 +118,9 @@ require([], function(){
     /* attach the texture as the "map" property of the material */
     var sphereMat = new THREE.MeshBasicMaterial ({envMap:cubemap});
     var sphere = new THREE.Mesh (sphereGeo, sphereMat);
-    sphere.position.x = 50;
-    sphere.position.y = 50;
-    sphere.position.z = 50;
+    sphere.position.x = 20;
+    sphere.position.y = 20;
+    sphere.position.z = -50;
     scene.add(sphere);
 
     onRenderFcts.push(function(delta, now){
