@@ -1,8 +1,8 @@
 Blade = function(){
-	var center = new THREE.Mesh(new THREE.CylinderGeometry(0.5, 0.5, 1));
+	var center = new THREE.Mesh(new THREE.CylinderGeometry(0.5, 0.5, 1), new THREE.MeshPhongMaterial({color:0x9494B8}));
 
-	var blade1 = new THREE.Mesh(new THREE.CubeGeometry(16, .25, 1));
-	var blade2 = new THREE.Mesh(new THREE.CubeGeometry(16, .25, 1));
+	var blade1 = new THREE.Mesh(new THREE.CubeGeometry(16, .25, 1), new THREE.MeshPhongMaterial({color:0x9494B8}));
+	var blade2 = new THREE.Mesh(new THREE.CubeGeometry(16, .25, 1), new THREE.MeshPhongMaterial({color:0x9494B8}));
 
 	//carry out transformations
 	var blade_render = new THREE.Group();

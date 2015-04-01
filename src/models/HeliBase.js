@@ -1,15 +1,15 @@
 HeliBase = function() {
 
 	//similar to build function
-	var stand_large1 = new THREE.Mesh(new THREE.CylinderGeometry(.5, .5, 6));
-	var stand_small1 = new THREE.Mesh(new THREE.CylinderGeometry(.5, .5, 1.5));
-	var stand_large2 = new THREE.Mesh(new THREE.CylinderGeometry(.5, .5, 6));
-	var stand_small2 = new THREE.Mesh(new THREE.CylinderGeometry(.5, .5, 1.5));
-	var ski1 = new THREE.Mesh(new THREE.CylinderGeometry(.5, .5, 1.5));
-	var ski2 = new THREE.Mesh(new THREE.CylinderGeometry(.5, .5, 1.5));
-	var main_frame = new THREE.Mesh(new THREE.CubeGeometry(4.5, 4, 8));
-	var windshield = new THREE.Mesh(new THREE.CylinderGeometry(2, 2, 4.25));
-	var rear = new THREE.Mesh(new THREE.CylinderGeometry(2, .5, 8));
+	var stand_large1 = new THREE.Mesh(new THREE.CylinderGeometry(.5, .5, 6), new THREE.MeshPhongMaterial({color:0x9494B8}));
+	var stand_small1 = new THREE.Mesh(new THREE.CylinderGeometry(.5, .5, 1.5), new THREE.MeshPhongMaterial({color:0x9494B8}));
+	var stand_large2 = new THREE.Mesh(new THREE.CylinderGeometry(.5, .5, 6), new THREE.MeshPhongMaterial({color:0x9494B8}));
+	var stand_small2 = new THREE.Mesh(new THREE.CylinderGeometry(.5, .5, 1.5), new THREE.MeshPhongMaterial({color:0x9494B8}));
+	var ski1 = new THREE.Mesh(new THREE.CylinderGeometry(.5, .5, 1.5), new THREE.MeshPhongMaterial({color:0x9494B8}));
+	var ski2 = new THREE.Mesh(new THREE.CylinderGeometry(.5, .5, 1.5), new THREE.MeshPhongMaterial({color:0x9494B8}));
+	var main_frame = new THREE.Mesh(new THREE.CubeGeometry(4.5, 4, 8), new THREE.MeshPhongMaterial({color:0xFF0000}));
+	var windshield = new THREE.Mesh(new THREE.CylinderGeometry(2, 2, 4.25), new THREE.MeshPhongMaterial({color:0x9494B8}));
+	var rear = new THREE.Mesh(new THREE.CylinderGeometry(2, .5, 8), new THREE.MeshPhongMaterial({color:0xFF0000}));
 
 	//similar to render function
 	var base_render = new THREE.Group();
