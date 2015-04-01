@@ -1,11 +1,11 @@
 Tank = function(){
 
 	var body = new THREE.CubeGeometry(6, 3, 4);
-	var turret = new Turret();
-	var track1 = new Track();
-	var track2 = new Track();
-	var guard1 = new Guard();
-	var guard2 = new Guard();
+	var turret = new Mesh(new Turret(), new MeshPhongMaterial({color:0x535353}));
+	var track1 = new Mesh(new Track(), new MeshPhongMaterial({color:0x535353}));
+	var track2 = new Mesh(new Track(), new MeshPhongMaterial({color:0x535353}));
+	var guard1 = new Mesh(new Guard(), new MeshPhongMaterial({color:0x535353}));
+	var guard2 = new Mesh(new Guard(), new MeshPhongMaterial({color:0x535353}));
 
 	this.turret_position = 0;
 	this.update = function(r, l, t){

@@ -1,7 +1,13 @@
 Turret = function() {
 	//build
-	var turret = new THREE.CubeGeometry(3, 2, 3);
-	var barrel = new THREE.CylinderGeometry(.3, .3, 4.5);
+	var tur = new THREE.CubeGeometry(3, 2, 3);
+	var bar = new THREE.CylinderGeometry(.3, .3, 4.5);
+
+	var turMat = new THREE.MeshPhongMaterial({color:0x578231});
+	var barMat = new THREE.MeshPhongMaterial({color:0x892423});
+
+	var barrel = new THREE.Mesh(bar, barMat);
+	var turret = new THREE.Mesh(tur, turMat);
 
 	//render
 	var turret_render = new THREE.Group();

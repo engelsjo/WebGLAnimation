@@ -1,7 +1,13 @@
 Track = function(){
 
-	var tread = new THREE.CubeGeometry(.1, .2, 1);
-	var wheel = new THREE.CylinderGeometry(.5, .5, 1);
+	var trd = new THREE.CubeGeometry(.1, .2, 1);
+	var whl = new THREE.CylinderGeometry(.5, .5, 1);
+
+	var trdMat = new THREE.MeshPhongMaterial({color:0x578231});
+	var whlMat = new THREE.MeshPhongMaterial({color:0x344423});
+
+	var tread = new THREE.Mesh(trd, trdMat);
+	var wheel = new THREE.Mesh(whl, wheel);
 
 	this.distance_travelled = 0;
 	this.update = function(dist){
