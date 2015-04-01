@@ -74,9 +74,10 @@ require([], function(){
     var heli_rear_cf = new THREE.Matrix4();
 
     //set the initial place of the helicopter
-    helibase_cf.makeTranslation(0, 75, 40);
-    heli_blade.multiply(new THREE.Matrix4().makeTranslation(0, 0, 5.75), new THREE.Matrix4().makeRotationZ(THREE.Math.degToRad(45)));
-    heli_rear_cf.multiply(new THREE.Matrix4().makeTranslation(-11, -1.2, 3.75), new THREE.Matrix4().scale(new Vector3(.25, .25, .25)), new THREE.Matrix4().makeRotationX(THREE.Math.degToRad(90)));
+    helibase_cf.makeTranslation(0, 0, 0);
+    //helibase_cf.makeTranslation(0, 75, 40);
+    heli_blade_cf.multiply(new THREE.Matrix4().makeTranslation(0, 0, 5.75), new THREE.Matrix4().makeRotationZ(THREE.Math.degToRad(45)));
+    heli_rear_cf.multiply(new THREE.Matrix4().makeTranslation(-11, -1.2, 3.75), new THREE.Matrix4().scale(new THREE.Vector3(.25, .25, .25)), new THREE.Matrix4().makeRotationX(THREE.Math.degToRad(90)));
     
     //init the models for the helicopter
     var helibase = new HeliBase();
@@ -111,10 +112,12 @@ require([], function(){
     //wood_tex.repeat.set(2,2);
     //wood_tex.wrapS = THREE.MirroredRepeatWrapping;
     //wood_tex.wrapT = THREE.MirroredRepeatWrapping;
-    var groundPlane = new THREE.PlaneBufferGeometry(150, 150, 10, 10);
+    var groundPlane = new THREE.PlaneBufferGeometry(40, 40, 10, 10);
     /* attach the texture as the "map" property of the material */
-    var groundMat = new THREE.MeshPhongMaterial({color:0x1d6438, ambient:0x1d6438, map:stone_tex});
+    //var groundMat = new THREE.MeshPhongMaterial({color:0x1d6438, ambient:0x1d6438, map:stone_tex});
+    var groundMat = new THREE.MeshPhongMaterial({color:0x000000});
     var ground = new THREE.Mesh (groundPlane, groundMat);
+    //var ground = new THREE.Mesh(groundPlane);
     ground.rotateX(THREE.Math.degToRad(-90));
     scene.add (ground);
 
@@ -125,7 +128,8 @@ require([], function(){
     //sphere.position.x = 10;
     //sphere.position.y = 10;
     //sphere.position.z = 10;
-    scene.add(sphere);
+    var sphere = new THREE.Mesh(sphereGeo);
+    //scene.add(sphere);
 
     camera.lookAt(new THREE.Vector3(0, 5, 0));
 
@@ -146,12 +150,6 @@ require([], function(){
             helibase_cf.decompose(tran, quat, vscale);
             helibase.position.copy(tran);
             helibase.quaternion.copy(quat);
-
-
-            //wheel_cf.multiply(new THREE.Matrix4().makeRotationZ(THREE.Math.degToRad(delta * 72)));
-            //wheel_cf.decompose(tran, quat, vscale);
-            //wheel.position.copy(tran);
-            //wheel.quaternion.copy(quat);
         }
 	});
 	
