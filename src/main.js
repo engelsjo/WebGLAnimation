@@ -16,9 +16,9 @@ require([], function(){
     // setup a scene and camera
     var scene   = new THREE.Scene();
     var camera  = new THREE.PerspectiveCamera(60, CANVAS_WIDTH / CANVAS_HEIGHT, 0.01, 1000);
-//    camera.up.set (0, 0, 1); /* use the Z axis as the upright direction */
-//    camera.position.x = 3;
-    camera.position.y = 25;
+    //camera.up.set (0, 0, 1); /* use the Z axis as the upright direction */
+    camera.position.x = 30;
+    camera.position.y = 100;
     camera.position.z = 30;
 
 //    scene.add (new THREE.GridHelper(10, 1));
@@ -83,40 +83,33 @@ require([], function(){
     scene.add(helibase);
     scene.add (new THREE.AxisHelper(4));
 
+
     /* Load the first texture image */
-    var stone_tex = THREE.ImageUtils.loadTexture("textures/stone256.jpg");
+    var grass_tex = THREE.ImageUtils.loadTexture("textures/grass.jpg");
     /* for repeat to work, the image size must be 2^k */
 
     /* repeat the texture 4 times in both direction */
-    stone_tex.repeat.set(4,4);
-    stone_tex.wrapS = THREE.RepeatWrapping;
-    stone_tex.wrapT = THREE.RepeatWrapping;
+    grass_tex.repeat.set(4,4);
+    grass_tex.wrapS = THREE.RepeatMirroredWrapping;
+    grass_tex.wrapT = THREE.RepeatMirroredWrapping;
 
-    /* Load the second texture image */
-    var wood_tex = THREE.ImageUtils.loadTexture("textures/wood256.jpg");
-
-    /* mirror repeat the texture 2 times, without
-     * mirror repeat the seam between the left
-     * and right edge of the texture will be
-     * visible */
-    wood_tex.repeat.set(2,2);
-    wood_tex.wrapS = THREE.MirroredRepeatWrapping;
-    wood_tex.wrapT = THREE.MirroredRepeatWrapping;
     var groundPlane = new THREE.PlaneBufferGeometry(40, 40, 10, 10);
     /* attach the texture as the "map" property of the material */
-    var groundMat = new THREE.MeshPhongMaterial({color:0x1d6438, ambient:0x1d6438, map:stone_tex});
+    var groundMat = new THREE.MeshPhongMaterial({color:0x1d6438, ambient:0x1d6438, map:grass_tex});
     var ground = new THREE.Mesh (groundPlane, groundMat);
     ground.rotateX(THREE.Math.degToRad(-90));
-    //scene.add (ground);
+    scene.add (ground);
 
     var sphereGeo = new THREE.SphereGeometry(8, 30, 20);
     /* attach the texture as the "map" property of the material */
     var sphereMat = new THREE.MeshBasicMaterial ({envMap:cubemap});
     var sphere = new THREE.Mesh (sphereGeo, sphereMat);
-    sphere.position.x = 10;
-    sphere.position.y = 10;
-    sphere.position.z = 10;
-    //scene.add(sphere);
+    sphere.position.x = 0;
+    sphere.position.y = 0;
+    sphere.position.z = 0;
+    scene.add(sphere);
+
+
 //    var grid = new THREE.GridHelper(50, 1);
 //    scene.add (grid);
 
@@ -124,7 +117,7 @@ require([], function(){
 //  var coneMat = new THREE.MeshPhongMaterial({color:0x0f0650});
 //  scene.add(new THREE.Mesh(myCone, coneMat));
 
-    camera.lookAt(new THREE.Vector3(0, 5, 0));
+//    camera.lookAt(new THREE.Vector3(0, 0, 0));
 //    mesh.matrixAutoUpdate = false;
 
     onRenderFcts.push(function(delta, now){
