@@ -23,10 +23,10 @@ require([], function(){
     // setup a scene and camera
     var scene   = new THREE.Scene();
     var camera  = new THREE.PerspectiveCamera(60, CANVAS_WIDTH / CANVAS_HEIGHT, 0.01, 1000);
-    //camera.up.set (0, 0, 1); /* use the Z axis as the upright direction */
-    camera.position.x = 30;
-    camera.position.y = 100;
-    camera.position.z = 30;
+    camera.up.set (0, 0, -1); /* use the Z axis as the upright direction */
+    camera.position.x = 0;
+    camera.position.y = 50;
+    camera.position.z = 50;
 
 //    scene.add (new THREE.GridHelper(10, 1));
     // declare the rendering loop
@@ -169,7 +169,7 @@ require([], function(){
 
         //######################## TANK ANIMATION ##########################
 
-        var dist = (right_speed + left_speed) * delta;
+        var dist = (right_speed + left_speed) * delta/100.0;
 
         if(left_speed == right_speed) {
             tank_cf.multiply(tank_cf, new THREE.Matrix4().makeTranslation(30*dist, 0, 0));
@@ -203,6 +203,11 @@ require([], function(){
             tank_cf.multiply(tank_cf, new THREE.Matrix4().makeTranslation(-r*Math.sin(theta), 0, 0));
             tank_cf.multiply(tank_cf, new THREE.Matrix4().makeRotationY(THREE.Math.degToRad(-theta)));
         }
+
+
+        tank_cf.decompose(tran, quat, vscale);
+        tank.position.copy(tran);
+        tank.quaternion.copy(quat);
     });
     
     //////////////////////////////////////////////////////////////////////////////////
@@ -219,12 +224,28 @@ require([], function(){
         if (key == 'p') {
             pauseAnim ^= true; /* toggle it */
         }
+
+	else if (key == 'w') {
+		left_speed += 1;
+	}
+	
+	else if (key == 's') {
+		left_speed -= 1;
+	}
+	
+	else if (key == 'e') {
+		right_speed += 1;
+	}
+
+	else if (key == 'd') {
+		right_speed -= 1;
+	}
     }, false);
 
     onRenderFcts.push(function(delta, now){
         camera.position.x += (mouse.x*30 - camera.position.x) * (delta*3);
         camera.position.y += (mouse.y*30 - camera.position.y) * (delta*3);
-        camera.lookAt( scene.position )
+        //camera.lookAt( scene.position )
     });
 
     //////////////////////////////////////////////////////////////////////////////////
