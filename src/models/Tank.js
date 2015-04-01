@@ -1,11 +1,11 @@
 Tank = function(){
 
-	var body = new THREE.Mesh(new THREE.CubeGeometry(3, 6, 4), new THREE.MeshPhongMaterial({color:0x535353}));
-	var turret = new THREE.Mesh(new Turret(), new THREE.MeshPhongMaterial({color:0x535353}));
-	var track1 = new THREE.Mesh(new Track(), new THREE.MeshPhongMaterial({color:0x535353}));
-	var track2 = new THREE.Mesh(new Track(), new THREE.MeshPhongMaterial({color:0x535353}));
-	var guard1 = new THREE.Mesh(new Guard(), new THREE.MeshPhongMaterial({color:0x535353}));
-	var guard2 = new THREE.Mesh(new Guard(), new THREE.MeshPhongMaterial({color:0x535353}));
+	var body = new THREE.Mesh(new THREE.CubeGeometry(6, 3, 4), new THREE.MeshPhongMaterial({color:0x535353}));
+	var turret = new Turret();
+	var track1 = new Track();
+	var track2 = new Track();
+	var guard1 = new Guard();
+	var guard2 = new Guard();
 
 	tank_render = new THREE.Group();
 
@@ -14,8 +14,8 @@ Tank = function(){
 	guard1.translateZ(-2.5);
 	guard1.translateY(3.4);
 
-	guard2.translateZ(-2.5);
-	guard2.translateY(8.4);
+	guard2.translateZ(2.5);
+	guard2.translateY(3.4);
 
 	track1.translateZ(-2.5);
 	track2.translateZ(2.5);

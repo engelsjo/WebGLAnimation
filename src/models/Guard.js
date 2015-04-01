@@ -9,11 +9,11 @@ Guard = function() {
 
 	sideBar1.translateX(-2.6495);
 	sideBar1.translateZ(-.375);
-	sideBar1.rotateY(-30);
+	sideBar1.rotateZ(Math.PI/6);
 
 	sideBar2.translateX(2.6495);
 	sideBar2.translateZ(-.375);
-	sideBar2.rotateY(-30);
+	sideBar2.rotateZ(-Math.PI/6);
 
 	guard_render.add(mainBar);
 	guard_render.add(sideBar1);

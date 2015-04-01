@@ -16,7 +16,7 @@ Turret = function() {
 
 	barrel.translateX(1.7);
 	barrel.translateY(1);
-	barrel.rotateY(THREE.Math.degToRad(70));
+	barrel.rotateZ(THREE.Math.degToRad(100));
 
 	turret_render.add(turret);
 	turret_render.add(barrel);
