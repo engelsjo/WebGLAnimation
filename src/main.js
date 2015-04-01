@@ -42,12 +42,12 @@ require([], function(){
     var frontLight  = new THREE.DirectionalLight(0xffffff, 1);
     frontLight.position.set(10, 35, 0.0)
     scene.add( frontLight )
-    scene.add ( new THREE.DirectionalLightHelper (frontLight, 1));
+    //scene.add ( new THREE.DirectionalLightHelper (frontLight, 1));
     var backLight   = new THREE.SpotLight('white', 1, 0, Math.PI / 6);
     backLight.castShadow = true;
     backLight.position.set(-4, 20, 10)
     scene.add( backLight )
-    scene.add ( new THREE.SpotLightHelper (backLight, 0.2));
+    //scene.add ( new THREE.SpotLightHelper (backLight, 0.2));
 
     // TEXTURE setup
     var path = "textures/"
