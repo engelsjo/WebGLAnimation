@@ -12,11 +12,11 @@ Turret = function() {
 	//render
 	var turret_render = new THREE.Group();
 
-	turret.translateZ(1);
+	turret.translateY(1);
 
 	barrel.translateX(1.7);
-	barrel.translateZ(1);
-	barrel.rotateY(70);
+	barrel.translateY(1);
+	barrel.rotateY(Math.degToRad(70));
 
 	turret_render.add(turret);
 	turret_render.add(barrel);
