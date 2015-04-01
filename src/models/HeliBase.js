@@ -1,15 +1,15 @@
 HeliBase = function() {
 
 	//similar to build function
-	var stand_large1 = new THREE.CylinderGeometry(.5, .5, 6);
-	var stand_small1 = new THREE.CylinderGeometry(.5, .5, 1.5);
-	var stand_large2 = stand_large1.clone();
-	var stand_small2 = stand_small1.clone();
-	var ski1 = stand_small1.clone();
-	var ski2 = stand_small1.clone();
-	var main_frame = new THREE.CubeGeometry(4, 8, 4.5);
-	var windshield = new THREE.CylinderGeometry(2, 2, 4.25);
-	var rear = new THREE.CylinderGeometry(2, .5, 8);
+	var stand_large1 = new THREE.Mesh(new THREE.CylinderGeometry(.5, .5, 6));
+	var stand_small1 = new THREE.Mesh(new THREE.CylinderGeometry(.5, .5, 1.5));
+	var stand_large2 = new THREE.Mesh(new THREE.CylinderGeometry(.5, .5, 6));
+	var stand_small2 = new THREE.Mesh(new THREE.CylinderGeometry(.5, .5, 1.5));
+	var ski1 = new THREE.Mesh(new THREE.CylinderGeometry(.5, .5, 1.5));
+	var ski2 = new THREE.Mesh(new THREE.CylinderGeometry(.5, .5, 1.5));
+	var main_frame = new THREE.Mesh(new THREE.CubeGeometry(4, 8, 4.5));
+	var windshield = new THREE.Mesh(new THREE.CylinderGeometry(2, 2, 4.25));
+	var rear = new THREE.Mesh(new THREE.CylinderGeometry(2, .5, 8));
 
 	//similar to render function
 	var base_render = new THREE.Group();

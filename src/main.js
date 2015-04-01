@@ -9,6 +9,7 @@ require([], function(){
     var CANVAS_WIDTH = 600, CANVAS_HEIGHT = 400;
 	renderer.setSize( CANVAS_WIDTH, CANVAS_HEIGHT );
     var gbox = document.getElementById('graphicsbox');
+    
     var pauseAnim = false;
     //document.body.appendChild(gbox);
 	gbox.appendChild( renderer.domElement );
@@ -32,7 +33,8 @@ require([], function(){
 	//////////////////////////////////////////////////////////////////////////////////
 	//		default 3 points lightning					//
 	//////////////////////////////////////////////////////////////////////////////////
-	
+
+
 	var ambientLight= new THREE.AmbientLight( 0x202020 )
 	scene.add( ambientLight)
 	var frontLight	= new THREE.DirectionalLight(0xffffff, 1);
@@ -73,8 +75,8 @@ require([], function(){
 
     //set the initial place of the helicopter
     helibase_cf.makeTranslation(0, 75, 40);
-    heli_blade.multiply(new THREE.Matrix4().makeTranslation(0, 0, 5.75), new THREE.Matrix4().makeRotationZ(THREE.Math.degToRad(45)));
-    heli_rear_cf.multiply(new THREE.Matrix4().makeTranslation(-11, -1.2, 3.75), new THREE.Matrix4().scale(new Vector3(.25, .25, .25)), new THREE.Matrix4().makeRotationX(THREE.Math.degToRad(90)));
+    heli_blade_cf.multiply(new THREE.Matrix4().makeTranslation(0, 0, 5.75), new THREE.Matrix4().makeRotationZ(THREE.Math.degToRad(45)));
+    heli_rear_cf.multiply(new THREE.Matrix4().makeTranslation(-11, -1.2, 3.75), new THREE.Matrix4().scale(new THREE.Vector3(.25, .25, .25)), new THREE.Matrix4().makeRotationX(THREE.Math.degToRad(90)));
     
     //init the models for the helicopter
     var helibase = new HeliBase();
@@ -109,9 +111,10 @@ require([], function(){
     //wood_tex.repeat.set(2,2);
     //wood_tex.wrapS = THREE.MirroredRepeatWrapping;
     //wood_tex.wrapT = THREE.MirroredRepeatWrapping;
-    var groundPlane = new THREE.PlaneBufferGeometry(150, 150, 10, 10);
+    var groundPlane = new THREE.PlaneBufferGeometry(40, 40, 10, 10);
     /* attach the texture as the "map" property of the material */
-    var groundMat = new THREE.MeshPhongMaterial({color:0x1d6438, ambient:0x1d6438, map:stone_tex});
+    //var groundMat = new THREE.MeshPhongMaterial({color:0x1d6438, ambient:0x1d6438, map:stone_tex});
+    var groundMat = new THREE.MeshPhongMaterial({color:0x1d6438, ambient:0x1d6438});
     var ground = new THREE.Mesh (groundPlane, groundMat);
     ground.rotateX(THREE.Math.degToRad(-90));
     scene.add (ground);
@@ -123,7 +126,8 @@ require([], function(){
     //sphere.position.x = 10;
     //sphere.position.y = 10;
     //sphere.position.z = 10;
-    scene.add(sphere);
+    var sphere = new THREE.Mesh(sphereGeo);
+    //scene.add(sphere);
 
     camera.lookAt(new THREE.Vector3(0, 5, 0));
 
@@ -144,12 +148,6 @@ require([], function(){
             helibase_cf.decompose(tran, quat, vscale);
             helibase.position.copy(tran);
             helibase.quaternion.copy(quat);
-
-
-            //wheel_cf.multiply(new THREE.Matrix4().makeRotationZ(THREE.Math.degToRad(delta * 72)));
-            //wheel_cf.decompose(tran, quat, vscale);
-            //wheel.position.copy(tran);
-            //wheel.quaternion.copy(quat);
         }
 	});
 	
