@@ -143,8 +143,8 @@ require([], function(){
             var quat = new THREE.Quaternion();
             var rot = new THREE.Quaternion();
             var vscale = new THREE.Vector3();
-
             helibase_cf.copy(new THREE.Matrix4().makeRotationZ(THREE.Math.degToRad(delta_degrees)).multiply(helibase_cf));
+            
             helibase_cf.decompose(tran, quat, vscale);
             helibase.position.copy(tran);
             helibase.quaternion.copy(quat);
