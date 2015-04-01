@@ -17,6 +17,8 @@ require([], function(){
     var rear_rpm = 50;
     var rpm = 50;
     var auto_pilot = true;
+    var left_speed = 0;
+    var right_speed = 0;
 
     // setup a scene and camera
     var scene   = new THREE.Scene();
@@ -90,6 +92,8 @@ require([], function(){
 
 
     //************** Tank stuff *****************
+    var tank_cf = new THREE.Matrix4(); 
+
     var tank = new Tank();
     scene.add(tank);
 
@@ -103,7 +107,7 @@ require([], function(){
     grass_tex.wrapS = THREE.RepeatMirroredWrapping;
     grass_tex.wrapT = THREE.RepeatMirroredWrapping;
 
-    var groundPlane = new THREE.PlaneBufferGeometry(40, 40, 10, 10);
+    var groundPlane = new THREE.PlaneBufferGeometry(150, 150, 10, 10);
     /* attach the texture as the "map" property of the material */
     var groundMat = new THREE.MeshPhongMaterial({color:0x1d6438, ambient:0x1d6438, map:grass_tex});
     var ground = new THREE.Mesh (groundPlane, groundMat);
@@ -126,6 +130,8 @@ require([], function(){
         var rot = new THREE.Quaternion();
         var vscale = new THREE.Vector3();
 
+
+        //######################## HELICOPTER ANIMATION ####################
 
         if(auto_pilot){
             var rps = .125;
@@ -161,6 +167,42 @@ require([], function(){
         rear_blade.quaternion.copy(quat);
         rear_blade.scale.set(vscale.x, vscale.y, vscale.z);
 
+        //######################## TANK ANIMATION ##########################
+
+        var dist = (right_speed + left_speed) * delta;
+
+        if(left_speed == right_speed) {
+            tank_cf.multiply(tank_cf, new THREE.Matrix4().makeTranslation(30*dist, 0, 0));
+        }
+        else if(-left_speed == right_speed) {
+            var theta = 180 * right_speed * delta / (Math.PI * 2.5);
+            tank_cf.multiply(tank_cf, new THREE.Matrix4().makeRotationY(THREE.Math.degToRad(theta)));
+        }
+        else if(left_speed == 0) {
+            var theta = 180 * right_speed * delta / (Math.PI * 2.5);
+            tank_cf.multiply(tank_cf, new THREE.Matrix4().makeTranslation(2.5*Math.sin(theta), 0, 0));
+            tank_cf.multiply(tank_cf, new THREE.Matrix4().makeRotationY(THREE.Math.degToRad(theta)));
+        }
+        else if (right_speed == 0) {
+            var theta = 180 * left_speed * delta / (Math.PI * 2.5);
+            tank_cf.multiply(tank_cf, new THREE.Matrix4().makeTranslation(2.5*Math.sin(theta), 0, 0));
+            tank_cf.multiply(tank_cf, new THREE.Matrix4().makeRotationY(THREE.Math.degToRad(-theta)));
+        }
+        else if(left_speed < right_speed){
+            var rat = (left_speed * 1.0)/right_speed;
+            var r = 2.5 * (rat+1)/(rat-1);
+            var theta = 180 * dist / (Math.PI * r);
+            tank_cf.multiply(tank_cf, new THREE.Matrix4().makeTranslation(r*Math.sin(theta), 0, 0));
+            tank_cf.multiply(tank_cf, new THREE.Matrix4().makeRotationY(THREE.Math.degToRad(-theta)));
+        }
+        else {
+            var rat = (right_speed * 1.0)/left_speed;
+            var r = 2.5 * (rat+1)/(rat-1);
+            var theta = -180 * dist / (Math.PI * r);
+
+            tank_cf.multiply(tank_cf, new THREE.Matrix4().makeTranslation(-r*Math.sin(theta), 0, 0));
+            tank_cf.multiply(tank_cf, new THREE.Matrix4().makeRotationY(THREE.Math.degToRad(-theta)));
+        }
     });
     
     //////////////////////////////////////////////////////////////////////////////////
