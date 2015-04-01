@@ -13,6 +13,11 @@ require([], function(){
     //document.body.appendChild(gbox);
     gbox.appendChild( renderer.domElement );
 
+    //GLOBALS
+    var rear_rpm = 50;
+    var rpm = 50;
+    var auto_pilot = true;
+
     // setup a scene and camera
     var scene   = new THREE.Scene();
     var camera  = new THREE.PerspectiveCamera(60, CANVAS_WIDTH / CANVAS_HEIGHT, 0.01, 1000);
@@ -45,7 +50,7 @@ require([], function(){
     scene.add ( new THREE.SpotLightHelper (backLight, 0.2));
 
     // TEXTURE setup
-    var path = "textures/MAK/"
+    var path = "textures/"
     /* The image names can be ANYTHING, but the the order of the SIX images
        in the array will be used as follows:
        the 1st image => Positive X axis
@@ -69,7 +74,7 @@ require([], function(){
     var helibase_cf = new THREE.Matrix4();
     var heli_blade_cf = new THREE.Matrix4();
     var heli_rear_cf = new THREE.Matrix4();
-    helibase_cf.makeTranslation(0, 0, 0);
+    helibase_cf.makeTranslation(10, 15, 0);
     heli_blade_cf.multiply(new THREE.Matrix4().makeTranslation(0, 5.75, 0), new THREE.Matrix4().makeRotationY(THREE.Math.degToRad(60)));    
     heli_rear_cf.multiply(new THREE.Matrix4().makeRotationZ(THREE.Math.degToRad(90)), new THREE.Matrix4().makeTranslation(3.75, 1, -11));
     heli_rear_cf.multiply(new THREE.Matrix4().scale(new THREE.Vector3(.25, .25, .25)));
@@ -109,17 +114,6 @@ require([], function(){
     sphere.position.z = 0;
     scene.add(sphere);
 
-
-//    var grid = new THREE.GridHelper(50, 1);
-//    scene.add (grid);
-
-//  var myCone = new Cone(40);
-//  var coneMat = new THREE.MeshPhongMaterial({color:0x0f0650});
-//  scene.add(new THREE.Mesh(myCone, coneMat));
-
-//    camera.lookAt(new THREE.Vector3(0, 0, 0));
-//    mesh.matrixAutoUpdate = false;
-
     onRenderFcts.push(function(delta, now){
         if (pauseAnim) return;
         var tran = new THREE.Vector3();
@@ -127,7 +121,28 @@ require([], function(){
         var rot = new THREE.Quaternion();
         var vscale = new THREE.Vector3();
 
-        //heli anim
+
+        if(auto_pilot){
+            var rps = .125;
+            var rotations = rps * delta;
+            delta_degrees = -(rotations * 360);
+            //post multiply to rotate around the cf of the world
+            helibase_cf.multiply(new THREE.Matrix4().makeRotationY(THREE.Math.degToRad(delta_degrees)), helibase_cf);
+
+        }
+        //calculate the big blade spin
+        var rps = rpm / 60.0 * 25;
+        var rotations = rps * delta;
+        var theta = -(rotations * 360);
+        heli_blade_cf.multiply(heli_blade_cf, new THREE.Matrix4().makeRotationY(THREE.Math.degToRad(theta)));
+
+        //calc the small blade spin
+        rps = rear_rpm / 60.0 * 25;
+        rotations = rps * delta;
+        theta = -(rotations * 360);
+        heli_rear_cf.multiply(heli_rear_cf, new THREE.Matrix4().makeRotationY(THREE.Math.degToRad(theta)));
+
+        //tie the updated cf to its object
         helibase_cf.decompose(tran, quat, vscale);
         helibase.position.copy(tran);
         helibase.quaternion.copy(quat);
