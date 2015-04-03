@@ -45,7 +45,7 @@ require([], function(){
     frontLight.position.set(10, 35, 0.0)
     scene.add( frontLight )
     //scene.add ( new THREE.DirectionalLightHelper (frontLight, 1));
-    var backLight   = new THREE.SpotLight('white', 1, 0, Math.PI / 6);
+    var backLight   = new THREE.SpotLight('white', 1, 0, Math.PI / 2);
     backLight.castShadow = true;
     backLight.position.set(-4, 20, 10)
     scene.add( backLight )
@@ -76,7 +76,7 @@ require([], function(){
     var helibase_cf = new THREE.Matrix4();
     var heli_blade_cf = new THREE.Matrix4();
     var heli_rear_cf = new THREE.Matrix4();
-    helibase_cf.makeTranslation(10, 15, 0);
+    helibase_cf.makeTranslation(25, 25, 0);
     heli_blade_cf.multiply(new THREE.Matrix4().makeTranslation(0, 5.75, 0), new THREE.Matrix4().makeRotationY(THREE.Math.degToRad(60)));    
     heli_rear_cf.multiply(new THREE.Matrix4().makeRotationZ(THREE.Math.degToRad(90)), new THREE.Matrix4().makeTranslation(3.75, 1, -11));
     heli_rear_cf.multiply(new THREE.Matrix4().scale(new THREE.Vector3(.25, .25, .25)));
@@ -96,6 +96,20 @@ require([], function(){
 
     var tank = new Tank();
     scene.add(tank);
+
+
+    //*************** Add Trees *****************
+    var nbr_of_trees = 25;
+    for (var i = 0; i < nbr_of_trees; i++){
+        var tree = new Tree();
+        var rand_pos_or_neg = (Math.floor(Math.random() * 2) + 1);
+        var rand_x = (Math.floor(Math.random() * 75) + 1);
+        if (rand_pos_or_neg == 1){rand_x *= -1}
+        var rand_z = (Math.floor(Math.random() * 75) + 1);
+        tree.position.x = rand_x;
+        tree.position.z = -rand_z;
+        scene.add(tree);
+    }
 
 
     /* Load the first texture image */
@@ -119,7 +133,7 @@ require([], function(){
     var sphereMat = new THREE.MeshBasicMaterial ({envMap:cubemap});
     var sphere = new THREE.Mesh (sphereGeo, sphereMat);
     sphere.position.x = 20;
-    sphere.position.y = 20;
+    sphere.position.y = 35;
     sphere.position.z = -50;
     scene.add(sphere);
 
@@ -141,6 +155,7 @@ require([], function(){
             helibase_cf.multiply(new THREE.Matrix4().makeRotationY(THREE.Math.degToRad(delta_degrees)), helibase_cf);
 
         }
+        backLight.position.set(helibase_cf.elements[12], helibase_cf.elements[13], helibase_cf.elements[14]);
         //calculate the big blade spin
         var rps = rpm / 60.0 * 25;
         var rotations = rps * delta;
